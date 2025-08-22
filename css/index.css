@@ -51,14 +51,6 @@ body {
     text-shadow: 0 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.ih-item.circle.effect .info p {
-    color: #bbb;
-    padding: 0px 0px 0px 0px;
-    font-style: italic;
-    padding-left: 0px;
-    font-size: 10px;
-}
-
 .ih-item.circle.effect.bottom_to_top .img {
     -webkit-transform-origin: 50% 0;
     -moz-transform-origin: 50% 0;
@@ -178,7 +170,7 @@ body {
 }
 @media all and (max-width: 780px) {
    .ih-item.circle .img {
-      position: relative;
+      position: relative; 
       width: 100px;
       height: 100px;
       /*margin-top: 20px;*/
@@ -209,6 +201,8 @@ div.left {
     height: 100%;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    border: solid 0.3em gold;
 }
 
 div.right {
@@ -216,8 +210,15 @@ div.right {
     margin-right: 5%;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    border: solid 0.3em gold;
 }
 
 div.header {
     display: grid;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 75%;
+    border: solid 0.3em gold;
 }
