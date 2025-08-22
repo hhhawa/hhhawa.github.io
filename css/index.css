@@ -10,3 +10,8 @@ p.container {
 p.left {
     width: 20%;
 }
+
+p.right {
+    margin-left: 25%;
+    margin-right: 5%;
+}
