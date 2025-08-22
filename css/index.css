@@ -1,3 +1,7 @@
+body {
+    display: flex;
+}
+
 p.container {
     column-count: 2; /* 2列 */
     text-align: center; /* 文本居中 */
@@ -7,11 +11,20 @@ p.container {
     column-rule: 1px solid #ffffff60; /* 列间隔 */
 }
 
-p.left {
+div.left {
     width: 20%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
-p.right {
+div.right {
     margin-left: 25%;
     margin-right: 5%;
+    align-items: center;
+    justify-content: center;
+}
+
+div.header {
+    display: grid;
 }
