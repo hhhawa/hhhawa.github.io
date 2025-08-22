@@ -222,3 +222,14 @@ div.header {
     margin-top: 75%;
     border: solid 0.3em gold;
 }
+
+ol.post-list {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0;
+}
+
+ol.post-list li {
+    width: 100%;
+    margin: 0 0 2.2em 0;
+}
