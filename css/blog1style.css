@@ -49,3 +49,25 @@ footer {
     padding: 10px 0;
     margin-top: 20px;
 }
+
+.comments {
+    background: #fff;
+    padding: 2px 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.comment {
+    font-size: 1em;
+    color: #333
+}
+
+.comment-name {
+    font-size: 0.9em;
+    color: #666
+}
+
+.comment-meta {
+    font-size: 0.8em;
+    color: #666
+}
