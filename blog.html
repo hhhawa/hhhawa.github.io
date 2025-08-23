@@ -3,14 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/blog.css" rel="stylesheet">
     <title>ULN 主页</title>
 </head>
 <body>
-    <h1>Uln的博客</h1>
-    <h2>
-        2025年8月：
-        <br/>
-        <a href=""></a>
-    </h2>
+    <div class="container">
+        <!-- 页面标题 -->
+        <div class="page-header">
+            <h1 class="page-title">我的博客</h1>
+            <p class="page-subtitle">分享技术与生活的点点滴滴</p>
+        </div>
+
+        <!-- 博客文章 1 -->
+        <article class="blog-post">
+            <div class="post-content">
+                <div class="post-image">
+                    <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=400" alt="文章图片">
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="post-text">
+                    <div class="post-meta">
+                        <span class="post-date">2024年3月15日</span>
+                        <span class="post-category">技术分享</span>
+                    </div>
+                    
+                    <h2 class="post-title">Web开发中的CSS布局技巧</h2>
+                    
+                    <p class="post-excerpt">
+                        在现代Web开发中，CSS布局是前端工程师必须掌握的核心技能之一。本文将分享一些实用的CSS布局技巧，帮助你创建更加美观和响应式的网页设计。从基础的Flexbox到高级的Grid布局，我们将逐步探讨各种布局方案的优缺点。
+                    </p>
+                    
+                    <div class="post-tags">
+                        <span class="tag">CSS</span>
+                        <span class="tag">前端开发</span>
+                        <span class="tag">布局</span>
+                        <span class="tag">响应式设计</span>
+                    </div>
+                    
+                    <a href="#" class="read-more">阅读更多</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- 博客文章 2 -->
+        <article class="blog-post">
+            <div class="post-content">
+                <div class="post-image">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400" alt="文章图片">
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="post-text">
+                    <div class="post-meta">
+                        <span class="post-date">2024年3月12日</span>
+                        <span class="post-category">生活随想</span>
+                    </div>
+                    
+                    <h2 class="post-title">咖啡文化与程序员的不解之缘</h2>
+                    
+                    <p class="post-excerpt">
+                        咖啡对于程序员来说不仅仅是一种饮品，更是一种文化和精神象征。从深夜的代码调试到早晨的需求分析，咖啡伴随着我们度过了无数个日日夜夜。本文将探讨咖啡如何影响我们的工作效率和创造力。
+                    </p>
+                    
+                    <div class="post-tags">
+                        <span class="tag">生活</span>
+                        <span class="tag">咖啡</span>
+                        <span class="tag">程序员</span>
+                        <span class="tag">文化</span>
+                    </div>
+                    
+                    <a href="#" class="read-more">阅读更多</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- 博客文章 3 -->
+        <article class="blog-post">
+            <div class="post-content">
+                <div class="post-image">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400" alt="文章图片">
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="post-text">
+                    <div class="post-meta">
+                        <span class="post-date">2024年3月10日</span>
+                        <span class="post-category">技术教程</span>
+                    </div>
+                    
+                    <h2 class="post-title">JavaScript异步编程最佳实践</h2>
+                    
+                    <p class="post-excerpt">
+                        异步编程是JavaScript中最重要的概念之一，掌握Promise、async/await等技术对于现代前端开发至关重要。本文将通过实际案例介绍JavaScript异步编程的最佳实践，帮助你写出更加优雅和高效的异步代码。
+                    </p>
+                    
+                    <div class="post-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">异步编程</span>
+                        <span class="tag">Promise</span>
+                        <span class="tag">教程</span>
+                    </div>
+                    
+                    <a href="#" class="read-more">阅读更多</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- 侧边栏（可选） -->
+        <div class="sidebar">
+            <h3>热门文章</h3>
+            <ul>
+                <li><a href="#">Vue 3.0 新特性详解</a></li>
+                <li><a href="#">React Hooks 实战指南</a></li>
+                <li><a href="#">Node.js 性能优化技巧</a></li>
+                <li><a href="#">前端工程化最佳实践</a></li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
