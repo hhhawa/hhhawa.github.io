@@ -11,8 +11,14 @@ body {
     background-color: #333;
 }
 
+.header {
+    display: flex;
+    margin: 0 auto;
+}
+
+/* 头像 start */
 .ih-item.circle.effect {
-    margin: 2em auto;
+    margin: 0 auto;
     -webkit-perspective: 900px;
     -moz-perspective: 900px;
     perspective: 900px;
@@ -185,6 +191,7 @@ body {
     font-size: 0.9em;
   }
 }
+/* 头像 end */
 
 .container {
     max-width: 1200px;
@@ -394,6 +401,7 @@ body {
     text-align: center;
     margin-bottom: 40px;
     padding: 40px 0;
+    margin: 0 auto
 }
 
 .page-title {
