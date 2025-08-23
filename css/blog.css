@@ -21,15 +21,14 @@ body {
 .blog-post {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     margin-bottom: 30px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .blog-post:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* 文章内容区域 */
@@ -123,8 +122,8 @@ body {
 }
 
 .post-category {
-    background: #f3e5f5;
-    color: #7b1fa2;
+    background: #7b1fa24b;
+    color: #f3e5f5;
     padding: 4px 12px;
     border-radius: 20px;
     font-weight: 500;
@@ -133,18 +132,18 @@ body {
 .post-title {
     font-size: 24px;
     font-weight: 700;
-    color: #2c3e50;
+    color: #667eea;
     margin-bottom: 15px;
     line-height: 1.3;
 }
 
 .post-title:hover {
-    color: #667eea;
+    color: #446b92;
     cursor: pointer;
 }
 
 .post-excerpt {
-    color: #555;
+    color: #ccc;
     margin-bottom: 20px;
     line-height: 1.7;
 }
@@ -157,8 +156,8 @@ body {
 }
 
 .tag {
-    background: #f1f3f4;
-    color: #5f6368;
+    background: #5f6368;
+    color: #f1f3f4;
     padding: 6px 12px;
     border-radius: 15px;
     font-size: 12px;
@@ -167,7 +166,7 @@ body {
 }
 
 .tag:hover {
-    background: #e8eaed;
+    background: #414344;
 }
 
 .read-more {
@@ -185,7 +184,6 @@ body {
 }
 
 .read-more:hover {
-    transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
 
@@ -226,7 +224,7 @@ body {
 .page-title {
     font-size: 36px;
     font-weight: 800;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #99acff 0%, #ba75ff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -234,24 +232,24 @@ body {
 }
 
 .page-subtitle {
-    color: #666;
+    color: #ccc;
     font-size: 18px;
 }
 
 /* 侧边栏样式（可选） */
 .sidebar {
-    background: white;
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 12px;
     padding: 20px;
     margin-top: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar h3 {
-    color: #2c3e50;
+    color: #667eea;
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid #555;
 }
 
 .sidebar ul {
@@ -260,15 +258,15 @@ body {
 
 .sidebar li {
     padding: 8px 0;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid #555;
 }
 
 .sidebar a {
-    color: #555;
+    color: #ccc;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .sidebar a:hover {
-    color: #667eea;
+    color: #446b92;
 }
