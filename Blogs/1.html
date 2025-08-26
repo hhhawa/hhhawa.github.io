@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简约博客 - 文章详情</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        
+        .article {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .article-title {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .article-meta {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .article-content {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .article-content p {
+            margin-bottom: 15px;
+        }
+        
+        .author {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #3498db;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .author-info h3 {
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .author-info p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .comments {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comments h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .comment {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comment:last-child {
+            border-bottom: none;
+        }
+        
+        .comment-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e74c3c;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        
+        .comment-author {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .comment-date {
+            color: #7f8c8d;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        .comment-content {
+            font-size: 14px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 600px) {
+            .nav {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+            }
+            
+            .nav-links a {
+                margin: 0 10px;
+            }
+            
+            .article-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <div class="logo">简约博客</div>
+            <div class="nav-links">
+                <a href="#">首页</a>
+                <a href="#">分类</a>
+                <a href="#">关于</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <article class="article">
+            <h1 class="article-title">Web开发中的响应式设计原则</h1>
+            <div class="article-meta">
+                发布于: 2023年5月15日 | 作者: 张三 | 分类: 前端开发
+            </div>
+            <div class="article-content">
+                <p>响应式网页设计已成为现代Web开发的标准实践。它使网站能够适应不同屏幕尺寸和设备类型，提供一致的用户体验。</p>
+                
+                <p>响应式设计的核心原则包括：</p>
+                
+                <p>1. 流动网格：使用相对单位（如百分比）而不是固定单位（如像素）来定义布局元素。</p>
+                
+                <p>2. 弹性图片：通过设置max-width: 100%确保图片不会超出其容器。</p>
+                
+                <p>3. 媒体查询：使用CSS媒体查询根据设备特性应用不同的样式规则。</p>
+                
+                <p>4. 移动优先：首先为移动设备设计，然后使用媒体查询为更大屏幕添加增强功能。</p>
+                
+                <p>通过遵循这些原则，开发者可以创建在各种设备上都能良好工作的网站，从智能手机到桌面显示器。</p>
+            </div>
+            
+            <div class="author">
+                <div class="author-avatar">张</div>
+                <div class="author-info">
+                    <h3>张三</h3>
+                    <p>前端开发工程师，热爱Web技术和用户体验设计，有5年行业经验。</p>
+                </div>
+            </div>
+        </article>
+        
+        <section class="comments">
+            <h2>评论 (3)</h2>
+            
+            <div class="comment">
+                <div class="comment-meta">
+                    <div class="comment-avatar">李</div>
+                    <span class="comment-author">李四</span>
+                    <span class="comment-date">2023年5月16日</span>
+                </div>
+                <div class="comment-content">
+                    很好的文章！对我最近的项目很有帮助。请问关于移动优先的设计方法有更详细的资源吗？
+                </div>
+            </div>
+            
+            <div class="comment">
+                <div class="comment-meta">
+                    <div class="comment-avatar">王</div>
+                    <span class="comment-author">王五</span>
+                    <span class="comment-date">2023年5月17日</span>
+                </div>
+                <div class="comment-content">
+                    响应式设计确实很重要，特别是在移动设备使用量不断增长的今天。感谢分享这些原则！
+                </div>
+            </div>
+            
+            <div class="comment">
+                <div class="comment-meta">
+                    <div class="comment-avatar">赵</div>
+                    <span class="comment-author">赵六</span>
+                    <span class="comment-date">2023年5月18日</span>
+                </div>
+                <div class="comment-content">
+                    简洁明了，适合初学者理解响应式设计的基本概念。期待更多关于CSS Grid和Flexbox的内容。
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2023 简约博客 - 所有权利保留</p>
+    </footer>
+</body>
+</html>
