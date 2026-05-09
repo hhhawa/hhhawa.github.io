@@ -1,4 +1,5 @@
 {
     "editor.fontFamily": "'Cascadia Code', 'Microsoft YaHei UI' ,Consolas, monospace, monospace",
     "editor.fontLigatures": true,
+    "livePreview.defaultPreviewPath": "/index.html",
 }
