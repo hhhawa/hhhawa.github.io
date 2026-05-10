@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱心筹款 · 清澜水族社</title>
+
+    <!-- 引用已有的样式 -->
+    <link rel="stylesheet" href="/index.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&family=Noto+Sans+SC:wght@400;500&family=Inter:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+    <!-- SurveyJS 资源 -->
+    <link href="https://unpkg.com/survey-core@1.9.131/survey-core.min.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/survey-core@1.9.131/survey.core.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/survey-js-ui@1.9.131/survey-js-ui.min.js"></script>
+
+    <style>
+        /* ========================================
+           SURVEYJS 液态玻璃主题覆盖
+           基于 index.css 的设计令牌系统
+           ======================================== */
+
+        /* --- 页面专属背景微调 --- */
+        body {
+            background-attachment: fixed;
+        }
+
+        /* --- 筹款页面专属容器 --- */
+        .fundraising-page {
+            padding: var(--spacing-section) 0;
+            position: relative;
+            z-index: 1;
+            min-height: 60vh;
+        }
+
+        .fundraising-wrapper {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- 页面标题区 --- */
+        .fundraising-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .fundraising-header .section-tag {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: var(--text-caption-upper);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--color-on-primary);
+            background: var(--color-primary);
+            padding: 4px 14px;
+            border-radius: var(--rounded-pill);
+            margin-bottom: var(--spacing-md);
+            box-shadow: 0 2px 8px var(--color-primary-glow);
+        }
+        .fundraising-header h1 {
+            font-family: var(--font-display);
+            font-size: var(--text-display-md);
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.015em;
+            color: var(--color-ink);
+            margin-bottom: var(--spacing-sm);
+        }
+        .fundraising-header .subtitle {
+            font-family: var(--font-body);
+            font-size: var(--text-body-md);
+            color: var(--color-muted);
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* --- 筹款进度卡片（表单上方） --- */
+        .fundraising-progress-card {
+            background: var(--color-surface-card);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: var(--glass-border);
+            border-radius: var(--rounded-lg);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            position: relative;
+            overflow: hidden;
+        }
+        .fundraising-progress-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 75% 30%,
+                    rgba(255, 255, 255, 0.3) 0%,
+                    transparent 55%);
+            border-radius: inherit;
+            pointer-events: none;
+        }
+        .progress-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 4px 10px rgba(91, 164, 176, 0.3));
+            animation: swim-gently 4s ease-in-out infinite;
+        }
+        .progress-info {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+            z-index: 1;
+        }
+        .progress-info h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-title-md);
+            font-weight: 500;
+            color: var(--color-ink);
+            margin-bottom: var(--spacing-xs);
+            letter-spacing: -0.005em;
+        }
+        .progress-info .goal-text {
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            color: var(--color-muted);
+            margin-bottom: var(--spacing-sm);
+        }
+        .progress-bar-outer {
+            width: 100%;
+            height: 10px;
+            background: rgba(91, 164, 176, 0.12);
+            border-radius: var(--rounded-pill);
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar-inner {
+            height: 100%;
+            background: linear-gradient(90deg,
+                    var(--color-primary) 0%,
+                    var(--color-accent-teal) 100%);
+            border-radius: var(--rounded-pill);
+            width: 38%;
+            position: relative;
+            transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .progress-bar-inner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.4) 0%,
+                    transparent 50%);
+            border-radius: inherit;
+        }
+        .progress-stats {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xs);
+            font-family: var(--font-body);
+            font-size: var(--text-caption);
+            color: var(--color-muted);
+            flex-wrap: wrap;
+        }
+        .progress-stats strong {
+            color: var(--color-ink);
+            font-weight: 500;
+        }
+
+        /* --- SurveyJS 表单容器 —— 磨砂玻璃卡片 --- */
+        .survey-glass-card {
+            background: var(--color-surface-card);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: var(--glass-border);
+            border-radius: var(--rounded-xl);
+            padding: var(--spacing-xl) var(--spacing-xxl);
+            box-shadow: var(--glass-shadow-elevated);
+            position: relative;
+            overflow: hidden;
+        }
+        .survey-glass-card::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: -20%;
+            width: 180%;
+            height: 160%;
+            background: radial-gradient(ellipse at 35% 25%,
+                    rgba(255, 255, 255, 0.3) 0%,
+                    transparent 55%);
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        #surveyContainer {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- 成功信息卡片（初始隐藏） --- */
+        .success-card {
+            display: none;
+            background: var(--color-surface-card);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: var(--glass-border);
+            border-radius: var(--rounded-xl);
+            padding: var(--spacing-xxl);
+            box-shadow: var(--glass-shadow-elevated);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .success-card.visible {
+            display: block;
+            animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .success-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 30%,
+                    rgba(255, 255, 255, 0.35) 0%,
+                    transparent 55%);
+            border-radius: inherit;
+            pointer-events: none;
+        }
+        .success-icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            z-index: 1;
+            animation: successPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0 8px 20px rgba(91, 164, 176, 0.35));
+        }
+        @keyframes successPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.25);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .success-card h2 {
+            font-family: var(--font-display);
+            font-size: var(--text-display-sm);
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            color: var(--color-ink);
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            z-index: 1;
+        }
+        .success-card p {
+            font-family: var(--font-body);
+            font-size: var(--text-body-md);
+            color: var(--color-muted);
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        .success-card .btn-primary {
+            position: relative;
+            z-index: 1;
+            padding: 14px 28px;
+            height: 48px;
+            font-size: 1rem;
+        }
+
+        /* ========================================
+           SURVEYJS 深度样式覆盖
+           ======================================== */
+
+        /* --- 根容器：去除默认背景 --- */
+        .sd-root-modern {
+            background: transparent !important;
+            font-family: var(--font-body) !important;
+            color: var(--color-body) !important;
+        }
+
+        /* --- 页面容器 --- */
+        .sd-page {
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        /* --- 标题/描述 --- */
+        .sd-title {
+            font-family: var(--font-display) !important;
+            font-size: var(--text-title-lg) !important;
+            font-weight: 500 !important;
+            color: var(--color-ink) !important;
+            letter-spacing: -0.01em !important;
+            padding: 0 !important;
+        }
+        .sd-description {
+            font-family: var(--font-body) !important;
+            font-size: var(--text-body-sm) !important;
+            color: var(--color-muted) !important;
+            line-height: 1.6 !important;
+        }
+
+        /* --- 问题容器 --- */
+        .sd-question {
+            background: transparent !important;
+            border: none !important;
+            padding: var(--spacing-md) 0 !important;
+            margin-bottom: var(--spacing-sm) !important;
+        }
+        .sd-question__title {
+            font-family: var(--font-body) !important;
+            font-size: var(--text-body-md) !important;
+            font-weight: 500 !important;
+            color: var(--color-body-strong) !important;
+            line-height: 1.5 !important;
+        }
+        .sd-question__required-text {
+            color: var(--color-error) !important;
+        }
+
+        /* --- 输入框通用 --- */
+        .sd-input,
+        .sd-text,
+        .sd-comment {
+            font-family: var(--font-body) !important;
+            font-size: var(--text-body-md) !important;
+            color: var(--color-ink) !important;
+            background: rgba(255, 255, 255, 0.5) !important;
+            backdrop-filter: blur(6px) !important;
+            -webkit-backdrop-filter: blur(6px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
+            border-radius: var(--rounded-md) !important;
+            padding: 10px 14px !important;
+            transition: all var(--transition-fast) !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+        .sd-input:focus,
+        .sd-text:focus,
+        .sd-comment:focus {
+            border-color: var(--color-primary) !important;
+            box-shadow: 0 0 0 3px rgba(91, 164, 176, 0.15), 0 0 16px rgba(91, 164, 176, 0.08) !important;
+            background: rgba(255, 255, 255, 0.7) !important;
+        }
+        .sd-input::placeholder,
+        .sd-text::placeholder,
+        .sd-comment::placeholder {
+            color: var(--color-muted-soft) !important;
+            font-family: var(--font-body) !important;
+        }
+
+        /* --- 文本区域 --- */
+        .sd-comment {
+            min-height: 100px !important;
+            resize: vertical !important;
+            line-height: 1.6 !important;
+        }
+
+        /* --- 单选按钮组 / 复选框 --- */
+        .sd-radio__control,
+        .sd-checkbox__control {
+            accent-color: var(--color-primary) !important;
+        }
+        .sd-radio__label,
+        .sd-checkbox__label {
+            font-family: var(--font-body) !important;
+            font-size: var(--text-body-md) !important;
+            color: var(--color-body) !important;
+        }
+        .sd-radio--checked .sd-radio__label,
+        .sd-checkbox--checked .sd-checkbox__label {
+            color: var(--color-ink) !important;
+        }
+        .sd-radio__decorator,
+        .sd-checkbox__decorator {
+            border-color: rgba(91, 164, 176, 0.4) !important;
+            background: rgba(255, 255, 255, 0.5) !important;
+            backdrop-filter: blur(4px) !important;
+            -webkit-backdrop-filter: blur(4px) !important;
+            transition: all var(--transition-fast) !important;
+        }
+        .sd-radio--checked .sd-radio__decorator,
+        .sd-checkbox--checked .sd-checkbox__decorator {
+            background: var(--color-primary) !important;
+            border-color: var(--color-primary) !important;
+            box-shadow: 0 0 10px var(--color-primary-glow) !important;
+        }
+
+        /* --- "其他"输入框 --- */
+        .sd-radio__other .sd-input,
+        .sd-checkbox__other .sd-input {
+            margin-top: var(--spacing-xs) !important;
+        }
+
+        /* --- 下拉选择 --- */
+        .sd-dropdown {
+            font-family: var(--font-body) !important;
+        }
+        .sd-dropdown__value {
+            font-family: var(--font-body) !important;
+            background: rgba(255, 255, 255, 0.5) !important;
+            backdrop-filter: blur(6px) !important;
+            -webkit-backdrop-filter: blur(6px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
+            border-radius: var(--rounded-md) !important;
+            padding: 10px 14px !important;
+        }
+
+        /* --- 错误信息 --- */
+        .sd-question__erbox {
+            font-family: var(--font-body) !important;
+            font-size: var(--text-caption) !important;
+            color: var(--color-error) !important;
+            background: rgba(196, 85, 85, 0.06) !important;
+            border-left: 3px solid var(--color-error) !important;
+            padding: 6px 12px !important;
+            border-radius: 0 var(--rounded-xs) var(--rounded-xs) 0 !important;
+            margin-top: var(--spacing-xs) !important;
+        }
+
+        /* --- 导航按钮区域 --- */
+        .sd-navigation {
+            padding: var(--spacing-lg) 0 0 0 !important;
+            border-top: var(--glass-border-soft) !important;
+            margin-top: var(--spacing-lg) !important;
+        }
+        .sd-navigation__btn {
+            font-family: var(--font-body) !important;
+            font-size: var(--text-button) !important;
+            font-weight: 500 !important;
+            border-radius: var(--rounded-md) !important;
+            padding: 12px 24px !important;
+            height: 44px !important;
+            transition: all var(--transition-fast) !important;
+            cursor: pointer !important;
+            border: none !important;
+            white-space: nowrap !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        /* 上一页按钮 */
+        .sd-navigation__btn--prev {
+            background: rgba(255, 255, 255, 0.5) !important;
+            backdrop-filter: blur(var(--glass-blur-light)) !important;
+            -webkit-backdrop-filter: blur(var(--glass-blur-light)) !important;
+            color: var(--color-ink) !important;
+            border: var(--glass-border) !important;
+        }
+        .sd-navigation__btn--prev:hover {
+            background: rgba(255, 255, 255, 0.7) !important;
+            box-shadow: var(--glass-shadow) !important;
+            border-color: rgba(255, 255, 255, 0.65) !important;
+        }
+        /* 下一页 / 完成按钮 */
+        .sd-navigation__btn--next,
+        .sd-navigation__complete-btn {
+            background: var(--color-primary) !important;
+            color: var(--color-on-primary) !important;
+            box-shadow: 0 2px 8px var(--color-primary-glow) !important;
+            position: relative !important;
+            overflow: hidden !important;
+            border: none !important;
+        }
+        .sd-navigation__btn--next::after,
+        .sd-navigation__complete-btn::after {
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            background: linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.2) 0%,
+                    transparent 50%) !important;
+            border-radius: inherit !important;
+            pointer-events: none !important;
+        }
+        .sd-navigation__btn--next:hover,
+        .sd-navigation__complete-btn:hover {
+            background: var(--color-primary-active) !important;
+            box-shadow: 0 4px 16px rgba(61, 135, 148, 0.4) !important;
+            transform: translateY(-1px) !important;
+        }
+        .sd-navigation__btn--next:active,
+        .sd-navigation__complete-btn:active {
+            transform: translateY(0) !important;
+            box-shadow: 0 1px 4px rgba(61, 135, 148, 0.3) !important;
+        }
+
+        /* --- 进度条 --- */
+        .sd-progress__bar {
+            background: rgba(91, 164, 176, 0.12) !important;
+            border-radius: var(--rounded-pill) !important;
+            height: 6px !important;
+            overflow: hidden !important;
+        }
+        .sd-progress__bar-inner {
+            background: linear-gradient(90deg,
+                    var(--color-primary) 0%,
+                    var(--color-accent-teal) 100%) !important;
+            border-radius: var(--rounded-pill) !important;
+            transition: width 0.5s ease !important;
+        }
+        .sd-progress__text {
+            font-family: var(--font-body) !important;
+            font-size: var(--text-caption) !important;
+            color: var(--color-muted) !important;
+        }
+
+        /* --- 布尔开关 --- */
+        .sd-boolean__switch {
+            background: rgba(91, 164, 176, 0.2) !important;
+            border-radius: var(--rounded-pill) !important;
+        }
+        .sd-boolean--checked .sd-boolean__switch {
+            background: var(--color-primary) !important;
+            box-shadow: 0 0 10px var(--color-primary-glow) !important;
+        }
+
+        /* --- 评分/其他组件 --- */
+        .sd-rating__item {
+            color: var(--color-muted) !important;
+            transition: all var(--transition-fast) !important;
+        }
+        .sd-rating__item--selected {
+            color: var(--color-primary) !important;
+        }
+
+        /* --- 面板/面板动态 --- */
+        .sd-panel {
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+        .sd-row {
+            gap: var(--spacing-md) !important;
+        }
+
+        /* --- 移动端微调 --- */
+        @media (max-width: 768px) {
+            .fundraising-wrapper {
+                padding: 0 var(--spacing-md);
+            }
+            .survey-glass-card {
+                padding: var(--spacing-lg) var(--spacing-md);
+                border-radius: var(--rounded-lg);
+            }
+            .fundraising-progress-card {
+                flex-direction: column;
+                text-align: center;
+                padding: var(--spacing-lg);
+                gap: var(--spacing-md);
+            }
+            .progress-icon {
+                font-size: 2rem;
+            }
+            .fundraising-header h1 {
+                font-size: var(--text-display-sm);
+            }
+            .success-card {
+                padding: var(--spacing-xl) var(--spacing-lg);
+            }
+            .sd-navigation__btn {
+                padding: 10px 18px !important;
+                height: 40px !important;
+                font-size: 0.8125rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .survey-glass-card {
+                padding: var(--spacing-md);
+            }
+            .sd-navigation {
+                flex-direction: column !important;
+                gap: var(--spacing-sm) !important;
+            }
+            .sd-navigation__btn {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+        }
+
+        /* --- 减少动画偏好 --- */
+        @media (prefers-reduced-motion: reduce) {
+            .success-card.visible {
+                animation: none;
+            }
+            .success-icon {
+                animation: none;
+            }
+            .progress-icon {
+                animation: none;
+            }
+            .sd-navigation__btn--next:hover,
+            .sd-navigation__complete-btn:hover {
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================
+    气泡装饰层
+    ======================================== -->
+    <div class="bubbles-container" aria-hidden="true">
+        <div class="bubble" style="left:5%;width:18px;height:18px;--dur:10s;--delay:0s;--drift1:15px;--drift2:-10px;--drift3:20px;--drift4:-6px;"></div>
+        <div class="bubble" style="left:15%;width:12px;height:12px;--dur:12s;--delay:2s;--drift1:-12px;--drift2:18px;--drift3:-8px;--drift4:12px;"></div>
+        <div class="bubble" style="left:25%;width:24px;height:24px;--dur:8s;--delay:1s;--drift1:20px;--drift2:-16px;--drift3:14px;--drift4:-18px;"></div>
+        <div class="bubble" style="left:38%;width:10px;height:10px;--dur:14s;--delay:3s;--drift1:-6px;--drift2:10px;--drift3:-14px;--drift4:8px;"></div>
+        <div class="bubble" style="left:50%;width:16px;height:16px;--dur:11s;--delay:0.5s;--drift1:18px;--drift2:-12px;--drift3:16px;--drift4:-10px;"></div>
+        <div class="bubble" style="left:62%;width:20px;height:20px;--dur:9s;--delay:4s;--drift1:-16px;--drift2:14px;--drift3:-20px;--drift4:16px;"></div>
+        <div class="bubble" style="left:72%;width:8px;height:8px;--dur:13s;--delay:1.5s;--drift1:8px;--drift2:-8px;--drift3:10px;--drift4:-4px;"></div>
+        <div class="bubble" style="left:82%;width:14px;height:14px;--dur:10.5s;--delay:2.5s;--drift1:-10px;--drift2:16px;--drift3:-12px;--drift4:10px;"></div>
+        <div class="bubble" style="left:90%;width:22px;height:22px;--dur:7.5s;--delay:5s;--drift1:14px;--drift2:-20px;--drift3:18px;--drift4:-14px;"></div>
+        <div class="bubble" style="left:32%;width:6px;height:6px;--dur:15s;--delay:3.5s;--drift1:-4px;--drift2:6px;--drift3:-8px;--drift4:4px;"></div>
+    </div>
+
+    <!-- ========================================
+    顶部导航（与主页一致）
+    ======================================== -->
+    <nav class="top-nav" id="topNav" role="navigation" aria-label="主导航">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-brand" aria-label="清澜水族社 首页">
+                <span class="nav-brand-mark">
+                    <span class="water-drop-mark"></span>
+                </span>
+                清澜水族社
+            </a>
+            <button class="hamburger" id="hamburgerBtn" aria-label="菜单" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#about">关于我们</a></li>
+                <li><a href="index.html#activities">社团活动</a></li>
+                <li><a href="index.html#fish-showcase">鱼类鉴赏</a></li>
+                <li><a href="index.html#join">加入我们</a></li>
+                <li><a href="fundraising.html" class="btn-primary" style="margin-left:4px;">爱心筹款</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ========================================
+    筹款表单主体
+    ======================================== -->
+    <main class="fundraising-page" id="fundraisingPage">
+        <div class="fundraising-wrapper">
+
+            <!-- 页面标题 -->
+            <div class="fundraising-header">
+                <span class="section-tag">🐟 爱心筹款</span>
+                <h1>为水族生灵添一份温暖</h1>
+                <p class="subtitle">
+                    您的每一份支持，都将用于社团鱼缸设备更新、鱼类养护及水族科普活动。
+                </p>
+            </div>
+
+            <!-- 筹款进度卡片 -->
+            <div class="fundraising-progress-card" aria-label="筹款进度">
+                <span class="progress-icon">🐠</span>
+                <div class="progress-info">
+                    <h3>筹款目标：¥5,000</h3>
+                    <p class="goal-text">用于购置新鱼缸、过滤设备及水族造景材料</p>
+                    <div class="progress-bar-outer">
+                        <div class="progress-bar-inner" id="progressBar" style="width:38%;"></div>
+                    </div>
+                    <div class="progress-stats">
+                        <span>已筹 <strong>¥1,900</strong></span>
+                        <span>还需 <strong>¥3,100</strong></span>
+                        <span>支持者 <strong>27</strong> 人</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SurveyJS 表单容器 -->
+            <div class="survey-glass-card" id="surveyCard">
+                <div id="surveyContainer"></div>
+            </div>
+
+            <!-- 成功信息卡片（初始隐藏） -->
+            <div class="success-card" id="successCard" role="status" aria-live="polite">
+                <span class="success-icon">💙</span>
+                <h2>感谢您的慷慨支持！</h2>
+                <p>
+                    您的捐款信息已成功提交。每一份心意都将化作粼粼波光，
+                    陪伴清澜水族社的鱼儿们健康成长。
+                </p>
+                <a href="index.html" class="btn-primary">返回首页</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ========================================
+    页脚
+    ======================================== -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-brand">
+                    <span class="water-drop-mark"></span>
+                    <span>清澜水族社</span>
+                </div>
+                <p style="color:var(--color-on-dark-soft);font-size:var(--text-body-sm);line-height:1.6;">
+                    以水为镜，以鱼为友<br>校内最具生机与美感的社团
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>社团导航</h4>
+                <ul>
+                    <li><a href="index.html#about">关于我们</a></li>
+                    <li><a href="index.html#activities">社团活动</a></li>
+                    <li><a href="index.html#fish-showcase">鱼类鉴赏</a></li>
+                    <li><a href="index.html#join">加入我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>学习资源</h4>
+                <ul>
+                    <li><a href="#">养鱼入门指南</a></li>
+                    <li><a href="#">水质管理手册</a></li>
+                    <li><a href="#">水草种植教程</a></li>
+                    <li><a href="#">鱼病防治百科</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>联系我们</h4>
+                <ul>
+                    <li><a href="#">📧 社团邮箱</a></li>
+                    <li><a href="#">💬 微信群</a></li>
+                    <li><a href="#">📍 学生活动中心B1</a></li>
+                    <li><a href="#">🕐 每周五下午开放</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 清澜水族社 · 校内养鱼社团 · 保留所有权利</p>
+        </div>
+    </footer>
+
+    <!-- ========================================
+    引用已有的 JS
+    ======================================== -->
+    <script src="/index.js"></script>
+
+    <!-- ========================================
+    SurveyJS 初始化 & 筹款表单逻辑
+    ======================================== -->
+    <script>
+        (function() {
+            // =============================================
+            // 1. 定义筹款调查问卷模型
+            // =============================================
+            const surveyJson = {
+                title: "清澜水族社 · 爱心捐款表",
+                description: "请填写以下信息，帮助我们更好地记录每一份善意。所有信息仅用于社团内部统计，不会公开。",
+                showQuestionNumbers: "onPage",
+                completeText: "确认捐款",
+                elements: [{
+                    name: "donorName",
+                    title: "您的姓名",
+                    type: "text",
+                    isRequired: true,
+                    placeholder: "请输入您的姓名",
+                    maxLength: 50
+                }, {
+                    name: "donorEmail",
+                    title: "电子邮箱",
+                    type: "text",
+                    inputType: "email",
+                    isRequired: true,
+                    placeholder: "example@mail.com",
+                    validators: [{
+                        type: "email",
+                        text: "请输入有效的电子邮箱地址"
+                    }]
+                }, {
+                    name: "donorPhone",
+                    title: "联系电话（选填）",
+                    type: "text",
+                    inputType: "tel",
+                    placeholder: "手机号码，便于我们联系致谢",
+                    validators: [{
+                        type: "regex",
+                        text: "请输入有效的手机号码（11位数字）",
+                        regex: "^1[3-9]\\d{9}$|^$|^$"
+                    }]
+                }, {
+                    name: "donationAmount",
+                    title: "捐款金额",
+                    type: "radiogroup",
+                    isRequired: true,
+                    choices: [
+                        { value: "10", text: "¥10 — 心意支持" },
+                        { value: "30", text: "¥30 — 饲料基金" },
+                        { value: "50", text: "¥50 — 设备基金" },
+                        { value: "100", text: "¥100 — 造景基金" },
+                        { value: "200", text: "¥200 — 社团赞助" },
+                        { value: "500", text: "¥500 — 年度支持" }
+                    ],
+                    showOtherItem: true,
+                    otherText: "自定义金额",
+                    otherPlaceholder: "请输入金额（元）",
+                    otherErrorText: "请输入有效的金额数字",
+                    validators: [{
+                        type: "expression",
+                        text: "自定义金额需为大于0的数字",
+                        expression: "{donationAmount} <> 'other' or ({donationAmount} = 'other' and not isEmpty({donationAmount}) and {donationAmount} > 0)"
+                    }]
+                }, {
+                    name: "donationPurpose",
+                    title: "捐款用途偏好（可多选）",
+                    type: "checkbox",
+                    isRequired: true,
+                    choices: [
+                        "鱼缸设备采购",
+                        "鱼类饲料和药品",
+                        "水族造景材料",
+                        "社团日常运营",
+                        "参观交流活动",
+                        "科普宣传物料"
+                    ],
+                    showOtherItem: true,
+                    otherText: "其他用途",
+                    otherPlaceholder: "请说明"
+                }, {
+                    name: "isAnonymous",
+                    title: "是否愿意匿名捐款？",
+                    type: "radiogroup",
+                    isRequired: true,
+                    choices: [
+                        { value: "no", text: "实名捐款（将在感谢名单中展示姓名）" },
+                        { value: "yes", text: "匿名捐款（不公开姓名）" }
+                    ],
+                    defaultValue: "no"
+                }, {
+                    name: "message",
+                    title: "给社团的寄语（选填）",
+                    type: "comment",
+                    placeholder: "写下您想对清澜水族社说的话…",
+                    maxLength: 500,
+                    rows: 3
+                }, {
+                    name: "subscribeNews",
+                    title: "是否愿意接收社团活动通知？",
+                    type: "boolean",
+                    defaultValue: true,
+                    labelTrue: "愿意接收",
+                    labelFalse: "暂不接收"
+                }]
+            };
+
+            // =============================================
+            // 2. 创建 SurveyJS 模型实例
+            // =============================================
+            const survey = new Survey.Model(surveyJson);
+
+            // 设置中文语言（如果SurveyJS支持）
+            if (typeof Survey.surveyLocalization !== 'undefined') {
+                Survey.surveyLocalization.locales['zh-cn'] = {
+                    requiredError: '此问题为必填项。',
+                    otherItemText: '其他（请说明）',
+                    noneItemText: '无',
+                    selectAllItemText: '全选',
+                    progressText: '第 {0} 页，共 {1} 页',
+                    emptySurvey: '问卷中没有可见问题。',
+                    completingSurvey: '感谢您完成问卷！',
+                    loadingFile: '加载中…',
+                    chooseFile: '选择文件…',
+                    noFileChosen: '未选择文件',
+                    confirmDelete: '确认删除？',
+                    keyDuplicationError: '此值应唯一。',
+                    addRow: '添加行',
+                    removeRow: '删除行',
+                    addPanel: '添加面板',
+                    removePanel: '删除面板',
+                    choices_Item: '选项',
+                    matrix_column: '列',
+                    matrix_row: '行',
+                    savingData: '正在保存数据…',
+                    savingDataSuccess: '数据保存成功！',
+                    savingDataError: '保存数据时发生错误。',
+                    savingDataErrorPrompt: '数据保存失败，请重试或联系管理员。',
+                    saveAgainButton: '重试',
+                    timerMin: '分',
+                    timerSec: '秒',
+                    timerSpentAll: '本页已用时：{0}',
+                    timerSpentPage: '本页已用时：{0}',
+                    timerSpentSurvey: '总计用时：{0}',
+                    timerLimitAll: '每页限时：{0}',
+                    timerLimitPage: '本页限时：{0}',
+                    timerLimitSurvey: '总计限时：{0}',
+                    clearCaption: '清除',
+                    chooseFileCaption: '选择文件',
+                    removeFileCaption: '移除文件',
+                    booleanCheckedLabel: '是',
+                    booleanUncheckedLabel: '否',
+                    confirmRemoveFile: '确认移除该文件：{0}？',
+                    confirmRemoveAllFiles: '确认移除所有文件？',
+                    questionTitlePatternText: '问题标题',
+                    modalCancelButtonText: '取消',
+                    modalApplyButtonText: '应用',
+                    filterStringPlaceholder: '输入以搜索…',
+                    emptyMessage: '暂无数据',
+                    noEntriesText: '暂无条目。\n点击下方按钮添加新条目。',
+                    more: '更多',
+                    tagboxDoneButtonCaption: '确定'
+                };
+                survey.locale = 'zh-cn';
+            }
+
+            // =============================================
+            // 3. 自定义 completeText
+            // =============================================
+            survey.completeText = '💙 确认捐款';
+
+            // =============================================
+            // 4. 处理调查完成
+            // =============================================
+            const surveyCard = document.getElementById('surveyCard');
+            const successCard = document.getElementById('successCard');
+            const surveyContainer = document.getElementById('surveyContainer');
+
+            survey.onComplete.add(function(sender, options) {
+                // 获取调查数据
+                const results = sender.data;
+                console.log('📋 筹款表单提交数据：', JSON.stringify(results, null, 2));
+
+                // 模拟发送数据到服务器
+                const SURVEY_ID = 'fundraising-2025';
+                saveSurveyResults(
+                    'https://your-web-service.com/api/' + SURVEY_ID,
+                    results
+                );
+
+                // 隐藏表单卡片，显示成功信息
+                if (surveyCard) {
+                    surveyCard.style.display = 'none';
+                }
+                if (successCard) {
+                    successCard.classList.add('visible');
+                    // 滚动到成功信息
+                    successCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+
+                // 更新筹款进度（模拟）
+                updateProgressAfterDonation(results);
+            });
+
+            // =============================================
+            // 5. 模拟数据提交函数
+            // =============================================
+            function saveSurveyResults(url, json) {
+                console.log(`📤 正在将数据发送至：${url}`);
+                // 在实际部署中，取消下方注释以真正发送数据：
+                //
+                // fetch(url, {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json;charset=UTF-8'
+                //     },
+                //     body: JSON.stringify(json)
+                // })
+                // .then(response => {
+                //     if (response.ok) {
+                //         console.log('✅ 数据提交成功');
+                //     } else {
+                //         console.error('❌ 数据提交失败');
+                //     }
+                // })
+                // .catch(error => {
+                //     console.error('❌ 网络错误：', error);
+                // });
+
+                // 当前为演示模式，模拟网络请求延迟
+                console.log('✅ [演示模式] 数据已记录（未实际发送）');
+                console.log('📝 提交内容：', JSON.stringify(json, null, 2));
+            }
+
+            // =============================================
+            // 6. 更新筹款进度（演示用）
+            // =============================================
+            function updateProgressAfterDonation(results) {
+                const progressBar = document.getElementById('progressBar');
+                if (!progressBar) return;
+
+                // 解析捐款金额
+                let amount = 0;
+                const rawAmount = results.donationAmount;
+                if (rawAmount && rawAmount !== 'other') {
+                    amount = parseFloat(rawAmount) || 0;
+                }
+                // 如果是"其他"金额，尝试从other值中获取
+                // 在SurveyJS中，选择"其他"时，值存储在单独的字段中
+                // 这里简化处理，仅做视觉上的进度微调
+                if (amount > 0) {
+                    const currentWidth = parseFloat(progressBar.style.width) || 38;
+                    const increment = Math.min(amount / 50, 15); // 每50元增加约1%，最多增加15%
+                    const newWidth = Math.min(currentWidth + increment, 100);
+                    progressBar.style.width = newWidth + '%';
+                } else {
+                    // 即使金额无法解析，也给予微小增幅以示鼓励
+                    const currentWidth = parseFloat(progressBar.style.width) || 38;
+                    const newWidth = Math.min(currentWidth + 1.5, 100);
+                    progressBar.style.width = newWidth + '%';
+                }
+            }
+
+            // =============================================
+            // 7. DOM 就绪后渲染
+            // =============================================
+            function renderSurvey() {
+                if (surveyContainer) {
+                    survey.render(surveyContainer);
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', renderSurvey);
+            } else {
+                // DOM 已就绪
+                renderSurvey();
+            }
+
+            // =============================================
+            // 8. 进度条入场动画
+            // =============================================
+            function animateProgressBar() {
+                const progressBar = document.getElementById('progressBar');
+                if (!progressBar) return;
+                const targetWidth = progressBar.style.width || '38%';
+                progressBar.style.width = '0%';
+                // 强制回流
+                void progressBar.offsetWidth;
+                progressBar.style.width = targetWidth;
+            }
+
+            // 当进度卡片进入视口时触发动画
+            if ('IntersectionObserver' in window) {
+                const progressCard = document.querySelector('.fundraising-progress-card');
+                if (progressCard) {
+                    const observer = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                animateProgressBar();
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.3 });
+                    observer.observe(progressCard);
+                }
+            } else {
+                // 降级处理：延迟执行
+                setTimeout(animateProgressBar, 500);
+            }
+
+            console.log('🐠 清澜水族社 · 筹款表单已就绪');
+            console.log('💡 提示：提交表单后查看控制台可看到收集的数据');
+        })();
+    </script>
+
+</body>
+</html>
