@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: #333;
+    background: #fff;
+    line-height: 1.8;
+}
+
+.page-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ========== 左侧文章列表 ========== */
+.sidebar {
+    width: 240px;
+    min-width: 240px;
+    padding: 40px 28px;
+    border-right: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: 0.05em;
+    color: #111;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #555;
+    font-size: 0.95rem;
+    display: block;
+    padding: 4px 0;
+    transition: color 0.15s;
+}
+
+.sidebar ul li a:hover {
+    color: #000;
+}
+
+.sidebar ul li a .date {
+    font-size: 0.78rem;
+    color: #999;
+    display: block;
+    margin-top: 1px;
+}
+
+/* ========== 分割线区域 ========== */
+/* 分割线已由 .sidebar 的 border-right 实现 */
+
+/* ========== 右侧文章内容 ========== */
+.main-content {
+    flex: 1;
+    padding: 40px 48px;
+    max-width: 720px;
+}
+
+.article-section {
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #eee;
+}
+
+.article-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.article-section h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.article-meta {
+    font-size: 0.82rem;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+.article-section p {
+    font-size: 0.98rem;
+    margin-bottom: 16px;
+    color: #444;
+}
+
+.article-section blockquote {
+    border-left: 2px solid #ccc;
+    margin: 16px 0;
+    padding: 8px 16px;
+    color: #666;
+    font-style: italic;
+}
+
+.back-to-top {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.82rem;
+    text-decoration: none;
+    color: #999;
+    border-bottom: 1px dotted #ccc;
+}
+
+.back-to-top:hover {
+    color: #333;
+    border-bottom-color: #333;
+}
+
+/* ========== 响应式：小屏幕时上下布局 ========== */
+@media (max-width: 640px) {
+    .page-wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        padding: 24px 20px;
+    }
+
+    .main-content {
+        padding: 24px 20px;
+        max-width: 100%;
+    }
+}
