@@ -147,3 +147,19 @@ body {
         max-width: 100%;
     }
 }
+a:link{
+    color:#00ddff;
+    text-decoration:none;
+}
+a:visited{
+    color:#00ddff;
+    text-decoration:none;
+}
+a:hover{
+    color:#00ddff;
+    text-decoration:none;
+}
+a:active{
+    color:#00ddff;
+    text-decoration:none;
+}
